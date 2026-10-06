@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f6ef">
+    <meta name="description" content="Moss helps city dwellers grow thriving gardens in the spaces they already have.">
+    <title>Moss — Make room to grow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <style>
+      :root {
+        --night: #f5f6ef;
+        --night-soft: #e9eee5;
+        --night-raised: #dce6d8;
+        --leaf: #355c3a;
+        --leaf-deep: #274a30;
+        --paper: #1d2b21;
+        --muted: #59665c;
+        --line: rgba(29, 43, 33, 0.16);
+        --display: "Playfair Display", Georgia, serif;
+        --body: "DM Sans", sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 82px;
+      }
+
+      body {
+        background: var(--night);
+        color: var(--paper);
+        font-family: var(--body);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .site-nav {
+        position: sticky;
+        z-index: 10;
+        top: 0;
+        border-bottom: 1px solid rgba(29, 43, 33, 0.12);
+        background: rgba(245, 246, 239, 0.96);
+        backdrop-filter: blur(12px);
+      }
+
+      .site-nav .container {
+        min-height: 78px;
+      }
+
+      .navbar-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        color: var(--paper);
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+
+      .navbar-brand:hover {
+        color: var(--leaf-deep);
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 36px;
+        height: 36px;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--leaf);
+        color: var(--night);
+        font-family: var(--display);
+        font-size: 1.1rem;
+      }
+
+      .site-nav .navbar-nav {
+        gap: 8px;
+      }
+
+      .site-nav .nav-link {
+        padding: 9px 13px;
+        color: rgba(29, 43, 33, 0.76);
+        font-size: 0.92rem;
+        font-weight: 500;
+        transition: color 160ms ease;
+      }
+
+      .site-nav .nav-link:hover,
+      .site-nav .nav-link.active {
+        color: var(--leaf);
+      }
+
+      .nav-cta,
+      .button-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 12px 18px;
+        border: 1px solid var(--leaf);
+        border-radius: 4px;
+        background: var(--leaf);
+        color: var(--night);
+        font-size: 0.92rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: background-color 160ms ease, border-color 160ms ease;
+      }
+
+      .nav-cta:hover,
+      .button-primary:hover {
+        border-color: var(--leaf-deep);
+        background: var(--leaf-deep);
+        color: var(--night);
+      }
+
+      .navbar-toggler {
+        border-color: rgba(29, 43, 33, 0.3);
+      }
+
+      .navbar-toggler:focus {
+        box-shadow: 0 0 0 3px rgba(198, 229, 139, 0.25);
+      }
+
+      .navbar-toggler-icon {
+        filter: none;
+      }
+
+      .hero {
+        position: relative;
+        display: flex;
+        min-height: 690px;
+        align-items: center;
+        overflow: hidden;
+        background-color: #18251c;
+        background-image: url("https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=2200&q=85");
+        background-position: center 52%;
+        background-size: cover;
+        color: #f4f2e9;
+      }
+
+      .hero::before {
+        position: absolute;
+        inset: 0;
+        background: rgba(9, 17, 12, 0.62);
+        content: "";
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 720px;
+        padding-top: 78px;
+        animation: rise-in 700ms ease both;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--leaf);
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 28px;
+        height: 1px;
+        background: currentColor;
+        content: "";
+      }
+
+      .hero h1 {
+        max-width: 700px;
+        margin: 22px 0 20px;
+        font-family: var(--display);
+        font-size: clamp(3.4rem, 8vw, 6.3rem);
+        font-weight: 500;
+        line-height: 0.99;
+      }
+
+      .hero h1 span {
+        color: #d4ecaa;
+        font-style: italic;
+      }
+
+      .hero-copy {
+        max-width: 480px;
+        margin-bottom: 29px;
+        color: rgba(244, 242, 233, 0.82);
+        font-size: 1.05rem;
+        line-height: 1.75;
+      }
+
+      .hero-note {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 42px;
+        color: rgba(244, 242, 233, 0.78);
+        font-size: 0.84rem;
+      }
+
+      .note-dots {
+        display: flex;
+        padding-left: 5px;
+      }
+
+      .note-dots span {
+        width: 24px;
+        height: 24px;
+        margin-left: -5px;
+        border: 2px solid #d8e5c6;
+        border-radius: 50%;
+        background: #718d5a;
+      }
+
+      .note-dots span:nth-child(2) {
+        background: #b47a59;
+      }
+
+      .note-dots span:nth-child(3) {
+        background: #718994;
+      }
+
+      .section-dark {
+        background: var(--night);
+      }
+
+      .section-soft {
+        background: var(--night-soft);
+      }
+
+      .section-pad {
+        padding: 100px 0;
+      }
+
+      .section-heading {
+        max-width: 620px;
+        margin: 16px 0 18px;
+        font-family: var(--display);
+        font-size: clamp(2.3rem, 5vw, 3.6rem);
+        font-weight: 500;
+        line-height: 1.12;
+      }
+
+      .section-copy {
+        max-width: 560px;
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.8;
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 0.9fr;
+        gap: 84px;
+        align-items: center;
+      }
+
+      .about-image {
+        position: relative;
+        min-height: 390px;
+        background-color: #26352a;
+        background-image: url("https://images.unsplash.com/photo-1483794344563-d27a8d18014e?auto=format&fit=crop&w=1100&q=85");
+        background-position: center;
+        background-size: cover;
+      }
+
+      .about-image::after {
+        position: absolute;
+        inset: 14px;
+        border: 1px solid rgba(244, 242, 233, 0.45);
+        content: "";
+      }
+
+      .stat-row {
+        display: flex;
+        gap: 42px;
+        margin-top: 34px;
+      }
+
+      .stat strong {
+        display: block;
+        color: var(--leaf);
+        font-family: var(--display);
+        font-size: 2rem;
+        font-weight: 500;
+      }
+
+      .stat span {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .gallery-intro {
+        display: flex;
+        justify-content: space-between;
+        gap: 32px;
+        align-items: end;
+        margin-bottom: 38px;
+      }
+
+      .gallery-meta {
+        display: inline-block;
+        margin-bottom: 12px;
+        color: var(--leaf);
+        font-size: 0.72rem;
+        font-weight: 700;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        grid-auto-rows: 164px;
+        gap: 12px;
+      }
+
+      .gallery-tile {
+        position: relative;
+        display: block;
+        min-width: 0;
+        overflow: hidden;
+        padding: 0;
+        border: 0;
+        background: var(--night-raised);
+        color: #fff;
+        text-align: left;
+      }
+
+      .gallery-tile:nth-child(1) {
+        grid-column: span 7;
+        grid-row: span 2;
+      }
+
+      .gallery-tile:nth-child(2),
+      .gallery-tile:nth-child(3) {
+        grid-column: span 5;
+      }
+
+      .gallery-tile:nth-child(n+4) {
+        grid-column: span 4;
+      }
+
+      .gallery-tile img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 350ms ease;
+      }
+
+      .gallery-tile:hover img,
+      .gallery-tile:focus-visible img {
+        transform: scale(1.04);
+      }
+
+      .gallery-tile:focus-visible {
+        outline: 3px solid var(--leaf);
+        outline-offset: 3px;
+      }
+
+      .gallery-caption {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 34px 16px 14px;
+        background: linear-gradient(transparent, rgba(13, 22, 15, 0.78));
+        color: #fff;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .gallery-modal .modal-content {
+        border: 0;
+        background: transparent;
+      }
+
+      .gallery-modal .modal-body {
+        position: relative;
+        padding: 0;
+      }
+
+      .gallery-modal img {
+        display: block;
+        width: 100%;
+        max-height: calc(100vh - 100px);
+        object-fit: contain;
+      }
+
+      .gallery-modal .btn-close {
+        position: absolute;
+        z-index: 1;
+        top: 14px;
+        right: 14px;
+        padding: 12px;
+        border-radius: 50%;
+        background-color: #fff;
+        opacity: 1;
+      }
+
+      .gallery-modal figcaption {
+        padding: 12px 0 0;
+        color: #fff;
+        font-size: 0.92rem;
+      }
+
+      .story-section {
+        background: var(--night);
+      }
+
+      .story-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .story-card {
+        display: block;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.56);
+        color: var(--paper);
+        text-decoration: none;
+        transition: border-color 160ms ease;
+      }
+
+      .story-card:hover,
+      .story-card:focus-visible {
+        border-color: var(--leaf);
+        color: var(--paper);
+      }
+
+      .story-card:focus-visible {
+        outline: 3px solid rgba(53, 92, 58, 0.3);
+        outline-offset: 3px;
+      }
+
+      .story-card img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1.45;
+        object-fit: cover;
+        transition: transform 300ms ease;
+      }
+
+      .story-card:hover img,
+      .story-card:focus-visible img {
+        transform: scale(1.035);
+      }
+
+      .story-body {
+        padding: 22px;
+      }
+
+      .story-kicker {
+        color: var(--leaf);
+        font-size: 0.7rem;
+        font-weight: 700;
+      }
+
+      .story-card h3 {
+        margin: 12px 0 9px;
+        font-family: var(--display);
+        font-size: 1.45rem;
+        font-weight: 500;
+      }
+
+      .story-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.7;
+      }
+
+      .story-read {
+        display: inline-block;
+        margin-top: 16px;
+        color: var(--leaf);
+        font-size: 0.84rem;
+        font-weight: 700;
+      }
+
+      .story-modal .modal-content {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        background: var(--night);
+      }
+
+      .story-modal .modal-header {
+        padding: 24px 30px 18px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .story-modal .modal-title {
+        margin-top: 8px;
+        font-family: var(--display);
+        font-size: 1.8rem;
+        font-weight: 500;
+      }
+
+      .story-modal .modal-body {
+        padding: 24px 30px 30px;
+      }
+
+      .story-modal-image {
+        display: block;
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+      }
+
+      .story-modal-lead {
+        margin: 20px 0 10px;
+        font-family: var(--display);
+        font-size: 1.35rem;
+        line-height: 1.45;
+      }
+
+      .story-modal-copy {
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      .story-modal-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-top: 22px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+      }
+
+      .story-modal-details h3 {
+        margin: 0 0 10px;
+        color: var(--leaf);
+        font-family: var(--body);
+        font-size: 0.72rem;
+        font-weight: 700;
+      }
+
+      .story-modal-details p,
+      .story-modal-details ul {
+        margin: 0;
+        color: var(--paper);
+        font-size: 0.92rem;
+        line-height: 1.7;
+      }
+
+      .story-modal-details ul {
+        padding-left: 18px;
+      }
+
+      .story-cta {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: center;
+        margin-top: 28px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+      }
+
+      .story-cta p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .service-intro {
+        display: flex;
+        justify-content: space-between;
+        gap: 32px;
+        align-items: end;
+        margin-bottom: 43px;
+      }
+
+      .service-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .service-item {
+        min-height: 248px;
+        padding: 30px 28px 30px 0;
+      }
+
+      .service-item:nth-child(3n+2),
+      .service-item:nth-child(3n) {
+        padding-left: 28px;
+        border-left: 1px solid var(--line);
+      }
+
+      .service-item:nth-child(n+4) {
+        border-top: 1px solid var(--line);
+      }
+
+      .service-number {
+        color: var(--leaf);
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      .service-item h3 {
+        margin: 30px 0 12px;
+        font-family: var(--display);
+        font-size: 1.55rem;
+        font-weight: 500;
+      }
+
+      .service-item p {
+        max-width: 290px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.94rem;
+        line-height: 1.75;
+      }
+
+      .service-open {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 16px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--leaf);
+        font: inherit;
+        font-size: 0.84rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .service-open:hover {
+        color: var(--leaf-deep);
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      .service-open:focus-visible {
+        outline: 3px solid rgba(53, 92, 58, 0.3);
+        outline-offset: 4px;
+      }
+
+      .service-modal .modal-content {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        background: var(--night);
+      }
+
+      .service-modal .modal-header {
+        padding: 24px 30px 18px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .service-modal .modal-title {
+        margin-top: 8px;
+        font-family: var(--display);
+        font-size: 1.8rem;
+        font-weight: 500;
+      }
+
+      .service-modal .modal-body {
+        padding: 24px 30px 30px;
+      }
+
+      .service-modal-copy {
+        margin: 0 0 22px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .service-tips {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .service-tip {
+        padding: 18px 20px;
+        border-top: 2px solid var(--leaf);
+        background: var(--night-soft);
+      }
+
+      .service-tip[data-kind="avoid"] {
+        border-top-color: #a75c43;
+      }
+
+      .service-tip h3 {
+        margin: 0 0 9px;
+        color: var(--leaf);
+        font-size: 0.74rem;
+        font-weight: 700;
+      }
+
+      .service-tip[data-kind="avoid"] h3 {
+        color: #8c4c38;
+      }
+
+      .service-tip p {
+        margin: 0;
+        color: var(--paper);
+        font-size: 0.92rem;
+        line-height: 1.7;
+      }
+
+      .service-modal-note {
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 0.8rem;
+        line-height: 1.6;
+      }
+
+      .service-next {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        align-items: center;
+        margin-top: 30px;
+      }
+
+      .service-next p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .quiz-section {
+        background: var(--night);
+      }
+
+      .quiz-layout {
+        display: grid;
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 72px;
+        align-items: start;
+      }
+
+      .plant-quiz {
+        border-top: 1px solid var(--line);
+      }
+
+      .quiz-question {
+        margin: 0;
+        padding: 20px 0;
+        border: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .quiz-question legend {
+        float: none;
+        width: auto;
+        margin-bottom: 12px;
+        font-family: var(--display);
+        font-size: 1.18rem;
+      }
+
+      .quiz-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+      }
+
+      .quiz-option {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 11px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.54);
+        color: var(--paper);
+        cursor: pointer;
+        font-size: 0.88rem;
+      }
+
+      .quiz-option:has(input:checked) {
+        border-color: var(--leaf);
+        background: var(--night-raised);
+      }
+
+      .quiz-option input {
+        accent-color: var(--leaf);
+      }
+
+      .quiz-result {
+        margin: 18px 0 0;
+        padding: 15px 18px;
+        border-left: 3px solid var(--leaf);
+        background: var(--night-soft);
+        color: var(--paper);
+        line-height: 1.65;
+      }
+
+      .contact-section {
+        border-top: 1px solid var(--line);
+        background: var(--night-soft);
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 0.8fr;
+        gap: 70px;
+        align-items: center;
+      }
+
+      .contact-details {
+        display: grid;
+        gap: 16px;
+      }
+
+      .contact-details a {
+        width: fit-content;
+        color: var(--paper);
+        text-decoration-color: rgba(198, 229, 139, 0.55);
+        text-underline-offset: 5px;
+      }
+
+      .contact-details a:hover {
+        color: var(--leaf);
+      }
+
+      .contact-label {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+
+      .contact-cta {
+        padding: 32px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.58);
+      }
+
+      .contact-cta p {
+        margin: 0 0 22px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .garden-modal .modal-content {
+        overflow: hidden;
+        border: 1px solid rgba(29, 43, 33, 0.12);
+        border-radius: 6px;
+        background: var(--night);
+        box-shadow: 0 24px 80px rgba(20, 34, 23, 0.22);
+      }
+
+      .garden-modal .modal-header {
+        padding: 25px 30px 20px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .garden-modal .modal-title {
+        margin-top: 7px;
+        font-family: var(--display);
+        font-size: 1.8rem;
+        font-weight: 500;
+      }
+
+      .garden-modal .modal-body {
+        padding: 28px 30px 30px;
+      }
+
+      .garden-form .form-label {
+        margin-bottom: 7px;
+        color: var(--paper);
+        font-size: 0.86rem;
+        font-weight: 600;
+      }
+
+      .garden-form .form-control,
+      .garden-form .form-select {
+        min-height: 46px;
+        border-color: rgba(29, 43, 33, 0.2);
+        border-radius: 3px;
+        background-color: #fff;
+        color: var(--paper);
+      }
+
+      .garden-form textarea.form-control {
+        min-height: 92px;
+      }
+
+      .garden-form .form-control:focus,
+      .garden-form .form-select:focus {
+        border-color: var(--leaf);
+        box-shadow: 0 0 0 3px rgba(53, 92, 58, 0.14);
+      }
+
+      .garden-preview {
+        height: 100%;
+        min-height: 250px;
+        padding: 25px;
+        background: var(--night-soft);
+      }
+
+      .garden-preview-label {
+        color: var(--leaf);
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+      }
+
+      .garden-preview-number {
+        display: block;
+        margin-top: 27px;
+        color: var(--leaf);
+        font-family: var(--display);
+        font-size: 2.7rem;
+        line-height: 1;
+      }
+
+      .garden-preview h3 {
+        margin: 13px 0 10px;
+        font-family: var(--display);
+        font-size: 1.45rem;
+        font-weight: 500;
+      }
+
+      .garden-preview p,
+      .garden-preview-note {
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+
+      .garden-preview-note {
+        display: block;
+        margin-top: 22px;
+        padding-top: 14px;
+        border-top: 1px solid var(--line);
+        font-size: 0.78rem;
+      }
+
+      .garden-status {
+        margin: 16px 0 0;
+        color: var(--leaf-deep);
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+
+      footer {
+        padding: 22px 0;
+        border-top: 1px solid var(--line);
+        background: var(--night);
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      @keyframes rise-in {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (max-width: 991.98px) {
+        .site-nav .container {
+          min-height: 70px;
+        }
+
+        .site-nav .navbar-collapse {
+          padding: 10px 0 18px;
+          background: var(--night);
+        }
+
+        .site-nav .navbar-nav {
+          gap: 0;
+        }
+
+        .nav-cta {
+          margin: 8px 13px 0;
+        }
+
+        .about-grid {
+          gap: 44px;
+        }
+      }
+
+      @media (max-width: 767.98px) {
+        .hero {
+          min-height: 680px;
+          background-position: 58% center;
+        }
+
+        .hero::before {
+          background: rgba(9, 17, 12, 0.69);
+        }
+
+        .hero h1 {
+          font-size: 3.5rem;
+        }
+
+        .section-pad {
+          padding: 76px 0;
+        }
+
+        .about-grid,
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 36px;
+        }
+
+        .quiz-layout {
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+
+        .about-image {
+          min-height: 300px;
+          grid-row: 1;
+        }
+
+        .service-intro {
+          display: block;
+        }
+
+        .gallery-intro {
+          display: block;
+        }
+
+        .story-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .service-tips {
+          grid-template-columns: 1fr;
+        }
+
+        .story-cta {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .gallery-grid {
+          grid-template-columns: repeat(6, minmax(0, 1fr));
+          grid-auto-rows: 130px;
+          gap: 9px;
+        }
+
+        .gallery-tile:nth-child(1) {
+          grid-column: span 6;
+          grid-row: span 1;
+        }
+
+        .gallery-tile:nth-child(n+2) {
+          grid-column: span 3;
+        }
+
+        .service-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .service-item,
+        .service-item:nth-child(n+2) {
+          min-height: auto;
+          padding: 24px 0;
+          border-left: 0;
+        }
+
+        .service-item:nth-child(n+2) {
+          border-top: 1px solid var(--line);
+        }
+
+        .service-next {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .service-item h3 {
+          margin-top: 16px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero h1 {
+          font-size: 3rem;
+        }
+
+        .hero-copy {
+          font-size: 0.98rem;
+        }
+
+        .stat-row {
+          gap: 24px;
+        }
+
+        .contact-cta {
+          padding: 24px;
+        }
+
+        .footer-inner {
+          flex-direction: column;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>  
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg site-nav" aria-label="Main navigation">
+      <div class="container">
+        <a class="navbar-brand" href="#home">
+          <span class="brand-mark" aria-hidden="true">M</span>
+          <span>Moss</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavigation">
+          <div class="navbar-nav mx-lg-auto">
+            <a class="nav-link active" aria-current="page" href="#home">Home</a>
+            <a class="nav-link" href="#about">About</a>
+            <a class="nav-link" href="#gallery">Gallery</a>
+            <a class="nav-link" href="#stories">Stories</a>
+            <a class="nav-link" href="#services">Services</a>
+            <a class="nav-link" href="#plant-quiz">Plant quiz</a>
+            <a class="nav-link" href="#contact">Contact</a>
+          </div>
+          <a class="nav-cta" href="#gardenPlannerModal" data-bs-toggle="modal" data-bs-target="#gardenPlannerModal">Plan your garden <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero" id="home" aria-labelledby="hero-title">
+        <div class="container">
+          <div class="hero-content">
+            <span class="eyebrow">Small spaces. Wild possibilities.</span>
+            <h1 id="hero-title">Make room<br>to <span>grow.</span></h1>
+            <p class="hero-copy">A little more green can change how a city feels. We help you turn balconies, rooftops, and forgotten corners into places full of life.</p>
+            <a class="button-primary" href="#services">Find your growing space <span aria-hidden="true">&rarr;</span></a>
+            <div class="hero-note">
+              <span class="note-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+              <span>Growing together in 12 neighborhoods</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-dark section-pad" id="about" aria-labelledby="about-title">
+        <div class="container about-grid">
+          <div>
+            <span class="eyebrow">A greener kind of city life</span>
+            <h2 class="section-heading" id="about-title">Nature doesn’t need a backyard.</h2>
+            <p class="section-copy">Moss is a community of urban growers, garden designers, and plant people. We make it easier to bring nature closer, whether you have a sunny windowsill or a whole rooftop to work with.</p>
+            <div class="stat-row" aria-label="Our impact">
+              <div class="stat"><strong>240+</strong><span>city gardens started</span></div>
+              <div class="stat"><strong>18k</strong><span>plants put in the ground</span></div>
+            </div>
+          </div>
+          <div class="about-image" role="img" aria-label="A lush collection of plants growing in a city garden"></div>
+        </div>
+      </section>
+
+      <section class="section-soft section-pad" id="gallery" aria-labelledby="gallery-title">
+        <div class="container">
+          <div class="gallery-intro">
+            <div>
+              <span class="eyebrow">Green looks good here</span>
+              <h2 class="section-heading" id="gallery-title">Little gardens, big city energy.</h2>
+            </div>
+            <p class="section-copy"><span class="gallery-meta">MOSS FIELD NOTES / 09 GARDENS</span><br>A peek at the pockets of life our neighbors are growing, one sunny corner at a time.</p>
+          </div>
+          <div class="gallery-grid" aria-label="Urban garden photo gallery">
+            <button class="gallery-tile" type="button" data-bs-toggle="modal" data-bs-target="#galleryModal" data-caption="A rooftop garden finding room to grow." aria-label="View rooftop garden photo">
+              <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1100&q=85" alt="Hands tending young plants in a garden" loading="lazy">
+              <span class="gallery-caption">Room to grow</span>
+            </button>
+            <button class="gallery-tile" type="button" data-bs-toggle="modal" data-bs-target="#galleryModal" data-caption="Fresh herbs close enough to pick for dinner." aria-label="View fresh herbs photo">
+              <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=900&q=85" alt="Rows of green plants in a city garden" loading="lazy">
+              <span class="gallery-caption">Grow a little daily</span>
+            </button>
+            <button class="gallery-tile" type="button" data-bs-toggle="modal" data-bs-target="#galleryModal" data-caption="A bright, leafy corner brings a room to life." aria-label="View indoor greenery photo">
+              <img src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=900&q=85" alt="Sunlight falling across leafy indoor plants" loading="lazy">
+              <span class="gallery-caption">Bring the outside in</span>
+            </button>
+            <button class="gallery-tile" type="button" data-bs-toggle="modal" data-bs-target="#galleryModal" data-caption="Good things grow when neighbors share what they know." aria-label="View community garden photo">
+              <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=900&q=85" alt="A colorful harvest of fresh garden produce" loading="lazy">
+              <span class="gallery-caption">Made for sharing</span>
+            </button>
+            <button class="gallery-tile" type="button" data-bs-toggle="modal" data-bs-target="#galleryModal" data-caption="Small-space planting, with plenty of personality." aria-label="View potted garden photo">
+              <img src="https://images.unsplash.com/photo-1483794344563-d27a8d18014e?auto=format&fit=crop&w=900&q=85" alt="A collection of potted plants in a green space" loading="lazy">
+              <span class="gallery-caption">Your own green nook</span>
+            </button>
+            <button class="gallery-tile" type="button" data-bs-toggle="modal" data-bs-target="#galleryModal" data-caption="A few pots can turn a balcony into a refuge." aria-label="View balcony garden photo">
+              <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=85" alt="A leafy potted plant in warm natural light" loading="lazy">
+              <span class="gallery-caption">A softer side of the city</span>
+            </button>
+            <button class="gallery-tile" type="button" data-bs-toggle="modal" data-bs-target="#galleryModal" data-caption="A sunlit shelf turns houseplants into a small indoor garden." aria-label="View sunlit houseplant photo">
+              <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=900&q=85" alt="Indoor plants arranged near a bright window" loading="lazy">
+              <span class="gallery-caption">Light finds a way</span>
+            </button>
+            <button class="gallery-tile" type="button" data-bs-toggle="modal" data-bs-target="#galleryModal" data-caption="Start small, and let your collection grow at its own pace." aria-label="View small potted plant photo">
+              <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=900&q=85" alt="A small green plant growing in a simple pot" loading="lazy">
+              <span class="gallery-caption">Start with one</span>
+            </button>
+            <button class="gallery-tile" type="button" data-bs-toggle="modal" data-bs-target="#galleryModal" data-caption="A shared garden makes even the smallest city spaces feel generous." aria-label="View shared garden photo">
+              <img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=900&q=85" alt="A gardener tending a thriving outdoor planting bed" loading="lazy">
+              <span class="gallery-caption">Good things take root</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="story-section section-pad" id="stories" aria-labelledby="stories-title">
+        <div class="container">
+          <div class="gallery-intro">
+            <div>
+              <span class="eyebrow">Ideas for your little patch</span>
+              <h2 class="section-heading" id="stories-title">Every garden starts somewhere.</h2>
+            </div>
+            <p class="section-copy">Three starting points for different spaces and light. These are garden ideas, not customer testimonials.</p>
+          </div>
+          <div class="story-grid">
+            <a class="story-card" href="#storyModal" data-bs-toggle="modal" data-bs-target="#storyModal" data-story="herb">
+              <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=900&q=85" alt="Green plants growing in a bright outdoor space" loading="lazy">
+              <div class="story-body">
+                <span class="story-kicker">STARTING POINT / SUNNY BALCONY</span>
+                <h3>A kitchen-window herb bar</h3>
+                <p>Keep basil, chives, and thyme close to the kitchen in a few well-drained pots that catch the morning sun.</p>
+                <span class="story-read">Read full story <span aria-hidden="true">&rarr;</span></span>
+              </div>
+            </a>
+            <a class="story-card" href="#storyModal" data-bs-toggle="modal" data-bs-target="#storyModal" data-story="shade">
+              <img src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=900&q=85" alt="Leafy houseplants gathered in soft window light" loading="lazy">
+              <div class="story-body">
+                <span class="story-kicker">STARTING POINT / SOFT LIGHT</span>
+                <h3>A calmer green corner</h3>
+                <p>Layer easy-care foliage at different heights to make a quiet indoor spot feel lush without needing direct sun.</p>
+                <span class="story-read">Read full story <span aria-hidden="true">&rarr;</span></span>
+              </div>
+            </a>
+            <a class="story-card" href="#storyModal" data-bs-toggle="modal" data-bs-target="#storyModal" data-story="shared">
+              <img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=900&q=85" alt="A gardener tending plants in a shared outdoor garden" loading="lazy">
+              <div class="story-body">
+                <span class="story-kicker">STARTING POINT / SHARED SPACE</span>
+                <h3>A pocket for pollinators</h3>
+                <p>Combine nectar-rich flowers with a few seasonal greens to make a courtyard corner welcoming to people and pollinators.</p>
+                <span class="story-read">Read full story <span aria-hidden="true">&rarr;</span></span>
+              </div>
+            </a>
+          </div>
+          <div class="story-cta">
+            <p>Have a real garden story to share? We would love to hear it.</p>
+            <a class="button-primary" href="mailto:hello@moss.garden?subject=My%20garden%20story">Share your garden story <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-soft section-pad" id="services" aria-labelledby="services-title">
+        <div class="container">
+          <div class="service-intro">
+            <div>
+              <span class="eyebrow">How we grow</span>
+              <h2 class="section-heading" id="services-title">A good garden starts with you.</h2>
+            </div>
+            <p class="section-copy">From the first sketch to seasonal care, we make every step feel doable for your space and your schedule.</p>
+          </div>
+          <div class="service-grid">
+            <article class="service-item">
+              <span class="service-number">01 / DESIGN</span>
+              <h3>Space planning</h3>
+              <p>Thoughtful layouts for balconies, rooftops, courtyards, and the in-between spaces.</p>
+              <button class="service-open" type="button" data-service="design" data-bs-toggle="modal" data-bs-target="#serviceModal" aria-label="Eco tips for space planning">Eco tips <span aria-hidden="true">&rarr;</span></button>
+            </article>
+            <article class="service-item">
+              <span class="service-number">02 / PLANTING</span>
+              <h3>Garden setup</h3>
+              <p>Climate-friendly plants, healthy soil, and everything you need to get growing.</p>
+              <button class="service-open" type="button" data-service="setup" data-bs-toggle="modal" data-bs-target="#serviceModal" aria-label="Eco tips for garden setup">Eco tips <span aria-hidden="true">&rarr;</span></button>
+            </article>
+            <article class="service-item">
+              <span class="service-number">03 / LEARNING</span>
+              <h3>Hands-on workshops</h3>
+              <p>Learn the simple skills that keep your little patch of green thriving all year.</p>
+              <button class="service-open" type="button" data-service="learning" data-bs-toggle="modal" data-bs-target="#serviceModal" aria-label="Eco tips for gardening workshops">Eco tips <span aria-hidden="true">&rarr;</span></button>
+            </article>
+            <article class="service-item">
+              <span class="service-number">04 / ONGOING CARE</span>
+              <h3>Seasonal check-ins</h3>
+              <p>Get timely help with pruning, soil refreshes, pest questions, and the next round of planting.</p>
+              <button class="service-open" type="button" data-service="seasonal" data-bs-toggle="modal" data-bs-target="#serviceModal" aria-label="Eco tips for seasonal garden care">Eco tips <span aria-hidden="true">&rarr;</span></button>
+            </article>
+            <article class="service-item">
+              <span class="service-number">05 / EDIBLE GARDENS</span>
+              <h3>Grow-your-own kits</h3>
+              <p>Start with a space-matched set of seeds, containers, and essentials for herbs and fresh produce.</p>
+              <button class="service-open" type="button" data-service="kits" data-bs-toggle="modal" data-bs-target="#serviceModal" aria-label="Eco tips for grow-your-own kits">Eco tips <span aria-hidden="true">&rarr;</span></button>
+            </article>
+            <article class="service-item">
+              <span class="service-number">06 / COMMUNITY</span>
+              <h3>Shared garden projects</h3>
+              <p>Bring neighbors together to plan and plant a courtyard, shared bed, or pollinator-friendly corner.</p>
+              <button class="service-open" type="button" data-service="community" data-bs-toggle="modal" data-bs-target="#serviceModal" aria-label="Eco tips for shared garden projects">Eco tips <span aria-hidden="true">&rarr;</span></button>
+            </article>
+            <article class="service-item">
+              <span class="service-number">07 / SOIL HEALTH</span>
+              <h3>Soil &amp; compost coaching</h3>
+              <p>Build healthier growing beds with practical advice on soil, composting, and natural nutrients.</p>
+              <button class="service-open" type="button" data-service="soil" data-bs-toggle="modal" data-bs-target="#serviceModal" aria-label="Eco tips for soil and compost">Eco tips <span aria-hidden="true">&rarr;</span></button>
+            </article>
+            <article class="service-item">
+              <span class="service-number">08 / PLANT RESCUE</span>
+              <h3>Plant health visits</h3>
+              <p>Get help identifying common plant troubles and a simple recovery plan for the greenery you love.</p>
+              <button class="service-open" type="button" data-service="health" data-bs-toggle="modal" data-bs-target="#serviceModal" aria-label="Eco tips for plant health">Eco tips <span aria-hidden="true">&rarr;</span></button>
+            </article>
+            <article class="service-item">
+              <span class="service-number">09 / SMARTER WATERING</span>
+              <h3>Watering setup</h3>
+              <p>Choose easy, water-wise routines and simple irrigation options that fit your containers and schedule.</p>
+              <button class="service-open" type="button" data-service="watering" data-bs-toggle="modal" data-bs-target="#serviceModal" aria-label="Eco tips for watering">Eco tips <span aria-hidden="true">&rarr;</span></button>
+            </article>
+          </div>
+          <div class="service-next">
+            <p>Not sure where to begin? Tell us about your light, space, and growing plans.</p>
+            <a class="button-primary" href="#gardenPlannerModal" data-bs-toggle="modal" data-bs-target="#gardenPlannerModal">Start a garden plan <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="quiz-section section-pad" id="plant-quiz" aria-labelledby="quiz-title">
+        <div class="container quiz-layout">
+          <div>
+            <span class="eyebrow">A quick green check</span>
+            <h2 class="section-heading" id="quiz-title">How well do you know your plants?</h2>
+            <p class="section-copy">Three little questions about everyday plant care. Pick one answer for each to see your score.</p>
+          </div>
+          <form class="plant-quiz" id="plantQuiz">
+            <fieldset class="quiz-question">
+              <legend>01. Why do pots need drainage holes?</legend>
+              <div class="quiz-options">
+                <label class="quiz-option"><input type="radio" name="soil" value="air" required> To let excess water escape</label>
+                <label class="quiz-option"><input type="radio" name="soil" value="color"> To help soil change color</label>
+                <label class="quiz-option"><input type="radio" name="soil" value="heat"> To keep the pot warmer</label>
+              </div>
+            </fieldset>
+            <fieldset class="quiz-question">
+              <legend>02. The top few centimeters of soil feel dry. What next?</legend>
+              <div class="quiz-options">
+                <label class="quiz-option"><input type="radio" name="water" value="dry" required> Water thoroughly, then let it drain</label>
+                <label class="quiz-option"><input type="radio" name="water" value="mist"> Mist the leaves only</label>
+                <label class="quiz-option"><input type="radio" name="water" value="wait"> Wait until the leaves droop</label>
+              </div>
+            </fieldset>
+            <fieldset class="quiz-question">
+              <legend>03. Where does basil usually grow best?</legend>
+              <div class="quiz-options">
+                <label class="quiz-option"><input type="radio" name="light" value="sun" required> In a bright, sunny spot</label>
+                <label class="quiz-option"><input type="radio" name="light" value="shade"> In deep shade</label>
+                <label class="quiz-option"><input type="radio" name="light" value="dark"> In a dark cupboard</label>
+              </div>
+            </fieldset>
+            <div class="d-flex flex-wrap align-items-center gap-3 mt-4">
+              <button class="button-primary" type="submit">Check my answers <span aria-hidden="true">&rarr;</span></button>
+              <button class="btn btn-link p-0 text-decoration-none" type="reset">Try again</button>
+            </div>
+            <p class="quiz-result" id="quizResult" aria-live="polite" hidden></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="contact-section section-pad" id="contact" aria-labelledby="contact-title">
+        <div class="container contact-grid">
+          <div>
+            <span class="eyebrow">Come say hello</span>
+            <h2 class="section-heading" id="contact-title">Your corner of green is waiting.</h2>
+            <p class="section-copy">Tell us what you’re dreaming up. We’ll help you figure out what can grow there.</p>
+            <div class="contact-details mt-4">
+              <div><span class="contact-label">Email</span><a href="mailto:hello@moss.garden">hello@moss.garden</a></div>
+              <div><span class="contact-label">Find us</span><span>Brooklyn, New York · Working everywhere</span></div>
+            </div>
+          </div>
+          <div class="contact-cta">
+            <p>Have a space in mind? Start with a quick note and we’ll take it from there.</p>
+            <a class="button-primary" href="#gardenPlannerModal" data-bs-toggle="modal" data-bs-target="#gardenPlannerModal">Tell us about your space <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal fade gallery-modal" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalCaption" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close gallery image"></button>
+            <figure class="m-0">
+              <img id="galleryModalImage" src="" alt="">
+              <figcaption id="galleryModalCaption"></figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade story-modal" id="storyModal" tabindex="-1" aria-labelledby="storyModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div>
+              <span class="story-kicker" id="storyModalKicker">GARDEN IDEA</span>
+              <h2 class="modal-title" id="storyModalTitle">A kitchen-window herb bar</h2>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close story"></button>
+          </div>
+          <div class="modal-body">
+            <img class="story-modal-image" id="storyModalImage" src="" alt="">
+            <p class="story-modal-lead" id="storyModalLead"></p>
+            <p class="story-modal-copy" id="storyModalCopy"></p>
+            <div class="story-modal-details">
+              <div>
+                <h3>PLANTS TO TRY</h3>
+                <ul id="storyModalPlants"></ul>
+              </div>
+              <div>
+                <h3>LIGHT &amp; CARE</h3>
+                <p id="storyModalCare"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade service-modal" id="serviceModal" tabindex="-1" aria-labelledby="serviceModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div>
+              <span class="story-kicker" id="serviceModalCategory">GARDEN PRACTICE</span>
+              <h2 class="modal-title" id="serviceModalTitle">Space planning</h2>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close eco tips"></button>
+          </div>
+          <div class="modal-body">
+            <p class="service-modal-copy" id="serviceModalCopy"></p>
+            <div class="service-tips">
+              <section class="service-tip" data-kind="do">
+                <h3>DO</h3>
+                <p id="serviceDo"></p>
+              </section>
+              <section class="service-tip" data-kind="avoid">
+                <h3>AVOID</h3>
+                <p id="serviceAvoid"></p>
+              </section>
+            </div>
+            <p class="service-modal-note">Plant choices and local rules vary by region. Check what is suitable for your climate and neighborhood.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade garden-modal" id="gardenPlannerModal" tabindex="-1" aria-labelledby="gardenPlannerTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div>
+              <span class="eyebrow">A little plan, just for you</span>
+              <h2 class="modal-title" id="gardenPlannerTitle">Tell us about your space.</h2>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="garden-form" id="gardenPlannerForm">
+              <div class="row g-4">
+                <div class="col-lg-7">
+                  <div class="row g-3">
+                    <div class="col-sm-6">
+                      <label class="form-label" for="gardenName">Your name</label>
+                      <input class="form-control" id="gardenName" name="name" autocomplete="name" placeholder="Jamie Green" required>
+                    </div>
+                    <div class="col-sm-6">
+                      <label class="form-label" for="gardenEmail">Email address</label>
+                      <input class="form-control" id="gardenEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="col-sm-6">
+                      <label class="form-label" for="gardenSpace">What are we growing in?</label>
+                      <select class="form-select" id="gardenSpace" name="space">
+                        <option value="balcony">Balcony</option>
+                        <option value="rooftop">Rooftop</option>
+                        <option value="windowsill">Windowsill</option>
+                        <option value="courtyard">Courtyard</option>
+                        <option value="indoors">Indoor corner</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-6">
+                      <label class="form-label" for="gardenLight">How much sunlight?</label>
+                      <select class="form-select" id="gardenLight" name="sunlight">
+                        <option value="sunny">Lots of sun, 6+ hours</option>
+                        <option value="partial">Some sun, 3-6 hours</option>
+                        <option value="shade">Mostly shade, under 3 hours</option>
+                      </select>
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label" for="gardenLocation">Neighborhood or city <span class="text-secondary fw-normal">(optional)</span></label>
+                      <input class="form-control" id="gardenLocation" name="location" autocomplete="address-level2" placeholder="Where will your garden grow?">
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label" for="gardenNotes">What would you love to grow? <span class="text-secondary fw-normal">(optional)</span></label>
+                      <textarea class="form-control" id="gardenNotes" name="notes" placeholder="Herbs for cooking, a quiet green nook, tomatoes..." rows="3"></textarea>
+                    </div>
+                    <div class="col-12">
+                      <button class="button-primary" type="submit">Prepare my garden plan <span aria-hidden="true">&rarr;</span></button>
+                      <p class="garden-status" id="gardenStatus" aria-live="polite" hidden></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-5">
+                  <aside class="garden-preview" aria-live="polite">
+                    <span class="garden-preview-label">YOUR FIRST PLANTING IDEA</span>
+                    <span class="garden-preview-number" aria-hidden="true">01</span>
+                    <h3 id="gardenIdeaTitle">A sunny balcony garden</h3>
+                    <p id="gardenIdeaText">Try a fragrant mix of basil, cherry tomatoes, and marigolds in a few deep pots.</p>
+                    <span class="garden-preview-note">Your idea changes with your space and sunlight.</span>
+                  </aside>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container footer-inner">
+        <span>&copy; Moss Urban Gardens</span>
+        <span>Made for a little more life in the city.</span>
+      </div>
+    </footer>
+    <script src="bootstrap.bundle.min.js"></script>
+    <script>
+      const gardenIdeas = {
+        balcony: {
+          sunny: ["A sunny balcony garden", "Try a fragrant mix of basil, cherry tomatoes, and marigolds in a few deep pots."],
+          partial: ["A bright little balcony", "Grow parsley, leafy greens, and compact strawberries where the softer afternoon light lands."],
+          shade: ["A calm, leafy balcony", "Ferns, mint, and shade-loving salad greens can turn a cooler balcony into a fresh retreat."]
+        },
+        rooftop: {
+          sunny: ["A rooftop pollinator patch", "Pair sturdy lavender, thyme, and nectar-rich flowers in wind-safe containers."],
+          partial: ["A rooftop herb table", "Chives, parsley, lettuce, and calendula make a useful garden for gentler light."],
+          shade: ["A sheltered rooftop nook", "Try woodland herbs, hardy ferns, and leafy greens in a protected corner."]
+        },
+        windowsill: {
+          sunny: ["A windowsill full of flavor", "Basil, chives, and a small pot of thyme love a bright, sunny ledge."],
+          partial: ["A soft-light windowsill", "Start with mint, parsley, and baby greens in compact pots with good drainage."],
+          shade: ["A low-light green corner", "Choose resilient plants like pothos and heartleaf philodendron for a leafy indoor start."]
+        },
+        courtyard: {
+          sunny: ["A courtyard in bloom", "Mix climbing beans, pollinator flowers, and a small citrus tree for a layered sunny garden."],
+          partial: ["A courtyard for picking", "Leafy greens, strawberries, and hydrangeas bring color and harvest to part-shade spaces."],
+          shade: ["A cool courtyard garden", "Hostas, ferns, and Japanese forest grass can make a shady courtyard feel lush."]
+        },
+        indoors: {
+          sunny: ["A bright indoor jungle", "Try a sunny collection of succulents, a dwarf citrus, and a pot of kitchen herbs."],
+          partial: ["A happy houseplant corner", "Monstera, peperomia, and a few easy herbs thrive near a bright indirect-light window."],
+          shade: ["A green, low-light corner", "ZZ plants, snake plants, and pothos bring easy greenery to a quieter corner."]
+        }
+      };
+
+      const gardenForm = document.querySelector("#gardenPlannerForm");
+      const gardenSpace = document.querySelector("#gardenSpace");
+      const gardenLight = document.querySelector("#gardenLight");
+      const gardenIdeaTitle = document.querySelector("#gardenIdeaTitle");
+      const gardenIdeaText = document.querySelector("#gardenIdeaText");
+      const gardenStatus = document.querySelector("#gardenStatus");
+      const galleryModalImage = document.querySelector("#galleryModalImage");
+      const galleryModalCaption = document.querySelector("#galleryModalCaption");
+      const plantQuiz = document.querySelector("#plantQuiz");
+      const quizResult = document.querySelector("#quizResult");
+      const storyModal = {
+        kicker: document.querySelector("#storyModalKicker"),
+        title: document.querySelector("#storyModalTitle"),
+        image: document.querySelector("#storyModalImage"),
+        lead: document.querySelector("#storyModalLead"),
+        copy: document.querySelector("#storyModalCopy"),
+        plants: document.querySelector("#storyModalPlants"),
+        care: document.querySelector("#storyModalCare")
+      };
+      const storyDetails = {
+        herb: {
+          kicker: "STARTING POINT / SUNNY BALCONY",
+          title: "A kitchen-window herb bar",
+          lead: "A useful garden can live just a few steps from the stove.",
+          copy: "Choose pots with drainage and group them where they receive several hours of direct sun. Put taller plants behind shorter ones so every herb gets light, and keep the pots close enough to make harvesting part of your everyday routine.",
+          plants: ["Basil", "Chives", "Thyme"],
+          care: "Give the herbs a sunny spot. Check the soil regularly and water thoroughly when the top layer feels dry; let excess water drain away."
+        },
+        shade: {
+          kicker: "STARTING POINT / SOFT LIGHT",
+          title: "A calmer green corner",
+          lead: "A lower-light corner can still feel layered, lively, and easy to care for.",
+          copy: "Use a mix of leaf shapes and heights to create depth. Place the most light-hungry plants nearest the window, and leave enough room around each pot for air to move and leaves to grow.",
+          plants: ["Pothos", "Heartleaf philodendron", "ZZ plant"],
+          care: "Choose bright, indirect light or moderate shade. Rotate pots now and then, and let the potting mix dry a little between waterings."
+        },
+        shared: {
+          kicker: "STARTING POINT / SHARED SPACE",
+          title: "A pocket for pollinators",
+          lead: "A shared courtyard corner can support people, flowers, and visiting pollinators.",
+          copy: "Start with a few nectar-rich flowers suited to the local climate, then add a small edible edge if there is room. Group plants with similar water needs and keep a clear path so neighbors can enjoy and care for the space together.",
+          plants: ["Local flowering plants", "Thyme or oregano", "Seasonal leafy greens"],
+          care: "Plan for sun to partial shade, depending on the plants you choose. Water new plantings consistently while they establish, then follow local rainfall and soil conditions."
+        }
+      };
+      const serviceModalFields = {
+        category: document.querySelector("#serviceModalCategory"),
+        title: document.querySelector("#serviceModalTitle"),
+        copy: document.querySelector("#serviceModalCopy"),
+        do: document.querySelector("#serviceDo"),
+        avoid: document.querySelector("#serviceAvoid")
+      };
+      const serviceDetails = {
+        design: { category: "LOW-IMPACT DESIGN", title: "Space planning", copy: "A thoughtful layout can make a small garden productive without using more materials than you need.", do: "Measure first, reuse sturdy containers, and choose plants suited to the light and local climate.", avoid: "Avoid blocking drains or buying oversized planters before checking weight limits and available space." },
+        setup: { category: "LOW-IMPACT PLANTING", title: "Garden setup", copy: "Set up a garden with healthy growing media and plants that can thrive in their actual conditions.", do: "Use peat-free growing mix, reusable pots, and seeds or plants adapted to your region.", avoid: "Avoid peat-based compost and routine broad-spectrum pesticides." },
+        learning: { category: "SHARED KNOW-HOW", title: "Hands-on workshops", copy: "Good growing habits help a garden use fewer resources over time.", do: "Learn to identify plants, compost safely, and share or borrow tools with neighbors.", avoid: "Avoid chemical weed killers and putting invasive plants into shared spaces." },
+        seasonal: { category: "SEASONAL CARE", title: "Seasonal check-ins", copy: "A seasonal review helps match garden care to the weather and each plant's growth cycle.", do: "Prune only when suitable for the species, inspect plants regularly, and water according to soil conditions.", avoid: "Avoid removing healthy growth or applying treatments before identifying the problem." },
+        kits: { category: "EDIBLE GARDENS", title: "Grow-your-own kits", copy: "A well-matched kit makes it easier to grow useful plants without unnecessary supplies.", do: "Choose regionally appropriate seeds, reusable containers, and the minimum tools your space needs.", avoid: "Avoid single-use plastic packaging and seeds for plants known to be invasive locally." },
+        community: { category: "COMMUNITY GARDENING", title: "Shared garden projects", copy: "Shared spaces work best when ecological choices and maintenance are planned together.", do: "Prioritize locally native flowers, keep paths accessible, and agree on watering and upkeep.", avoid: "Avoid pesticides that can harm pollinators and plants listed as invasive in your area." },
+        soil: { category: "HEALTHY SOIL", title: "Soil & compost coaching", copy: "Healthy soil supports stronger plants and can reduce the need for extra inputs.", do: "Add finished compost where appropriate and test soil before correcting nutrient or pH issues.", avoid: "Avoid over-fertilizing; excess nutrients can wash into waterways." },
+        health: { category: "PLANT HEALTH", title: "Plant health visits", copy: "The most sustainable plant treatment starts by finding the cause of the problem.", do: "Check watering, light, and pests first; isolate affected plants and try targeted, low-impact care.", avoid: "Avoid blanket pesticide sprays and discarding a plant before checking whether it can recover." },
+        watering: { category: "WATER-WISE GROWING", title: "Watering setup", copy: "A simple watering routine keeps plants healthy while reducing avoidable water use.", do: "Water the soil early in the day, group plants with similar needs, and collect rainwater where allowed.", avoid: "Avoid frequent shallow sprinkling, watering during the hottest hours, and runoff into storm drains." }
+      };
+
+      document.querySelectorAll(".service-open").forEach((button) => {
+        button.addEventListener("click", () => {
+          const service = serviceDetails[button.dataset.service];
+          serviceModalFields.category.textContent = service.category;
+          serviceModalFields.title.textContent = service.title;
+          serviceModalFields.copy.textContent = service.copy;
+          serviceModalFields.do.textContent = service.do;
+          serviceModalFields.avoid.textContent = service.avoid;
+        });
+      });
+
+      document.querySelectorAll(".story-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          const story = storyDetails[card.dataset.story];
+          const image = card.querySelector("img");
+          storyModal.kicker.textContent = story.kicker;
+          storyModal.title.textContent = story.title;
+          storyModal.image.src = image.src;
+          storyModal.image.alt = image.alt;
+          storyModal.lead.textContent = story.lead;
+          storyModal.copy.textContent = story.copy;
+          storyModal.plants.replaceChildren(...story.plants.map((plant) => {
+            const item = document.createElement("li");
+            item.textContent = plant;
+            return item;
+          }));
+          storyModal.care.textContent = story.care;
+        });
+      });
+
+      plantQuiz.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const answers = new FormData(plantQuiz);
+        const score = [answers.get("soil") === "air", answers.get("water") === "dry", answers.get("light") === "sun"].filter(Boolean).length;
+        const feedback = score === 3 ? "You have a lovely green thumb." : score === 2 ? "Nice work. One small plant-care fact to remember." : "Every plant lover starts somewhere. Keep growing.";
+        quizResult.hidden = false;
+        quizResult.textContent = `${score}/3 correct. ${feedback}`;
+      });
+
+      plantQuiz.addEventListener("reset", () => {
+        quizResult.hidden = true;
+        quizResult.textContent = "";
+      });
+
+      document.querySelectorAll(".gallery-tile").forEach((tile) => {
+        tile.addEventListener("click", () => {
+          const image = tile.querySelector("img");
+          galleryModalImage.src = image.src;
+          galleryModalImage.alt = image.alt;
+          galleryModalCaption.textContent = tile.dataset.caption;
+        });
+      });
+
+      function updateGardenIdea() {
+        const [title, idea] = gardenIdeas[gardenSpace.value][gardenLight.value];
+        gardenIdeaTitle.textContent = title;
+        gardenIdeaText.textContent = idea;
+      }
+
+      gardenSpace.addEventListener("change", updateGardenIdea);
+      gardenLight.addEventListener("change", updateGardenIdea);
+
+      gardenForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (!gardenForm.reportValidity()) return;
+
+        const formData = new FormData(gardenForm);
+        const [ideaTitle, ideaText] = gardenIdeas[formData.get("space")][formData.get("sunlight")];
+        const message = [
+          `Name: ${formData.get("name")}`,
+          `Email: ${formData.get("email")}`,
+          `Space: ${formData.get("space")}`,
+          `Sunlight: ${formData.get("sunlight")}`,
+          `Neighborhood or city: ${formData.get("location") || "Not provided"}`,
+          `What I'd love to grow: ${formData.get("notes") || "Not provided"}`,
+          `Garden idea: ${ideaTitle} - ${ideaText}`
+        ].join("\n");
+        const emailUrl = `mailto:hello@moss.garden?subject=${encodeURIComponent("Let's plan my garden")}&body=${encodeURIComponent(message)}`;
+
+        gardenStatus.hidden = false;
+        gardenStatus.textContent = "Your garden idea is ready. Your email app should open with the details; review and send it to finish. If it doesn't open, email hello@moss.garden.";
+        window.location.href = emailUrl;
+      });
+    </script>
+</body>
+</html>
